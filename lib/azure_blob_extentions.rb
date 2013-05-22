@@ -43,6 +43,7 @@ module Azure
         get_blob_properties(container_name, blob, options)
       rescue Azure::Core::Http::HTTPError => ex
         raise if ex.status_code != 404
+        false
       else
         true
       end
