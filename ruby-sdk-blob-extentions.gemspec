@@ -5,7 +5,7 @@ require 'azure_blob_extentions/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "azure_blob_extentions"
-  spec.version       = AzureBlobExtentions::VERSION
+  spec.version       = "0.0.2"
   spec.authors       = ["Takekazu Omi"]
   spec.email         = ["takekazuomi@gmail.com"]
   spec.description   = %q{Extentions for windows azure sdk for ruby 0.5.0}
