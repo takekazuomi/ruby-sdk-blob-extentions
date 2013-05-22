@@ -39,11 +39,11 @@ class BlobTest < MiniTest::Unit::TestCase
     create_test_blob_container
   end
 
-  def test_blob_exist?
+  def test_blob_exists?
     create_test_blob
-    r = @azure_blob_service.blob_exist? @container_name, TEST_DATAFILE_NANE
+    r = @azure_blob_service.blob_exists? @container_name, TEST_DATAFILE_NANE
     assert_equal true, r
-    r = @azure_blob_service.blob_exist? @container_name, TEST_DATAFILE_NANE+"2"
+    r = @azure_blob_service.blob_exists? @container_name, TEST_DATAFILE_NANE+"2"
     assert_equal false, r
   end
 

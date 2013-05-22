@@ -39,11 +39,10 @@ module Azure
         end
       end
 
-      def blob_exist?(container_name, blob, options={})
+      def blob_exists?(container_name, blob, options={})
         get_blob_properties(container_name, blob, options)
       rescue Azure::Core::Http::HTTPError => ex
         raise if ex.status_code != 404
-        false
       else
         true
       end
