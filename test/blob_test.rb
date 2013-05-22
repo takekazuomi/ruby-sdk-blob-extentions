@@ -33,13 +33,13 @@ class BlobTest < MiniTest::Unit::TestCase
       config.storage_access_key   = "VG1iawOENiEEfXuIe3sycANQrUcFCX5fXVa+5ZKHH2eCFSoFtOuu0adhUgUwr5tD1iciAOozkFGBdaeRrSWNeQ=="
     end
     @azure_blob_service = Azure::BlobService.new
-    @container_name = "blob-test%s" % Time.now.strftime("-%m%d%H%M%S")
+    @container_name = "1blob-test%s" % Time.now.strftime("-%m%d%H")
     @test_local_filename = File.expand_path('../'+TEST_DATAFILE_NANE, __FILE__)
 
     create_test_blob_container
   end
 
-  def test_blob_exists?
+  def xtest_blob_exists?
     create_test_blob
     r = @azure_blob_service.blob_exists? @container_name, TEST_DATAFILE_NANE
     assert_equal true, r
@@ -47,9 +47,18 @@ class BlobTest < MiniTest::Unit::TestCase
     assert_equal false, r
   end
 
-  def test_upload
+  def test_upload_in_threads
     @azure_blob_service.parallel_upload @container_name, @test_local_filename, TEST_DATAFILE_NANE, :in_threads => 2
-    r = @azure_blob_service.blob_exist? @container_name, TEST_DATAFILE_NANE
+    r = @azure_blob_service.blob_exists? @container_name, TEST_DATAFILE_NANE
+    p "%s, %s" % [@container_name, TEST_DATAFILE_NANE]
+    assert_equal true,  r
+  end
+
+  def test_upload_in_processes
+    blob_name = "%s.%s" % [TEST_DATAFILE_NANE, Time.now.strftime("%m%d%H%M%S")]
+    @azure_blob_service.parallel_upload @container_name, @test_local_filename, blob_name, :in_processes => 2
+    r = @azure_blob_service.blob_exists? @container_name, blob_name
+    p "%s, %s" % [@container_name, blob_name]
     assert_equal true,  r
   end
 
