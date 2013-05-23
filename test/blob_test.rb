@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'minitest/unit'
 require 'minitest/autorun'
 
@@ -55,6 +56,8 @@ class BlobTest < MiniTest::Unit::TestCase
   end
 
   def test_upload_in_processes
+    skip "fork unimplemented on this machine" if RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+
     blob_name = "%s.%s" % [TEST_DATAFILE_NANE, Time.now.strftime("%m%d%H%M%S")]
     @azure_blob_service.parallel_upload @container_name, @test_local_filename, blob_name, :in_processes => 2
     r = @azure_blob_service.blob_exists? @container_name, blob_name
