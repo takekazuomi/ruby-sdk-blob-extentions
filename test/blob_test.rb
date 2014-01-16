@@ -30,8 +30,8 @@ class BlobTest < MiniTest::Unit::TestCase
 
   def setup
     Azure.configure do |config|
-      config.storage_account_name = "foobarominode002"
-      config.storage_access_key   = "VG1iawOENiEEfXuIe3sycANQrUcFCX5fXVa+5ZKHH2eCFSoFtOuu0adhUgUwr5tD1iciAOozkFGBdaeRrSWNeQ=="
+      config.storage_account_name = "****"
+      config.storage_access_key   = "****"
     end
     @azure_blob_service = Azure::BlobService.new
     @container_name = "1blob-test%s" % Time.now.strftime("-%m%d%H")
